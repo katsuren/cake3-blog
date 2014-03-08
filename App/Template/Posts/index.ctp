@@ -9,7 +9,10 @@
 	<?php foreach ($posts as $post): ?>
 	<tr>
 		<td><?php echo $post->id; ?></td>
-		<td><?php echo $post->title; ?></td>
+		<td>
+			<?php echo $this->Html->link($post->title,
+				array('controller' => 'posts', 'action' => 'view', $post->id)); ?>
+		</td>
 		<td><?php echo $post->created->format('Y-m-d H:i:s'); ?></td>
 	</tr>
 	<?php endforeach; ?>

@@ -37,14 +37,14 @@ class PostsController extends AppController {
 			// $post = new Post($this->request->data);
 			$post->created = date('Y-m-d H:i:s');
 			$post->modified = date('Y-m-d H:i:s');
-			if ($posts->save($post)) {
+			$valid = $posts->validate($post);
+			if ($valid) {
+				$posts->save($post);
 				$this->Session->setFlash(__('Your post has been updated.'));
-				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(print_r($post->errors(), true));
+				$this->redirect('/posts/index');
 			}
-			$this->Session->setFlash(print_r($post->errors(), true));
-			$posts = TableRegistry::get('Posts');
-			$posts->save($entity);
-			$this->redirect('/posts/index');
 		}
 	}
 }

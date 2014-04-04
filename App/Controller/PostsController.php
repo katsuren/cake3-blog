@@ -35,15 +35,13 @@ class PostsController extends AppController {
 			$post = $posts->newEntity($this->request->data);
 			// $post = $posts->newEntities([['title' => 'title', 'body' => 'body']]);
 			// $post = new Post($this->request->data);
-			$post->created = date('Y-m-d H:i:s');
-			$post->modified = date('Y-m-d H:i:s');
 			$valid = $posts->validate($post);
 			if ($valid) {
 				$posts->save($post);
 				$this->Session->setFlash(__('Your post has been updated.'));
+				$this->redirect('/posts/index');
 			} else {
 				$this->Session->setFlash(print_r($post->errors(), true));
-				$this->redirect('/posts/index');
 			}
 		}
 	}

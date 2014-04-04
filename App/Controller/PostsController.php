@@ -31,10 +31,10 @@ class PostsController extends AppController {
 
 	public function add() {
 		if ($this->request->is('post')) {
-			// $posts = TableRegistry::get('Posts');
+			$posts = TableRegistry::get('Posts');
 			$post = $posts->newEntity($this->request->data);
 			// $post = $posts->newEntities([['title' => 'title', 'body' => 'body']]);
-			$post = new Post($this->request->data);
+			// $post = new Post($this->request->data);
 			$post->created = date('Y-m-d H:i:s');
 			$post->modified = date('Y-m-d H:i:s');
 			if ($posts->save($post)) {
